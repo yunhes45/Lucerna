@@ -17,3 +17,9 @@ class CollectionService:
             index_name = index_name,
             fields = request.fields,
         )
+
+
+
+    def delete_collection(self, group_id: str, collection_id: str):
+        index_name = f"{group_id}_{collection_id}"
+        self.repository.delete_storage(index_name)

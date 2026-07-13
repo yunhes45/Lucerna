@@ -18,3 +18,11 @@ class ElasticSearchStorageRepository(StorageRepository):
         }
 
         es.indices.create(index=storage_name, body=mapping)
+
+
+    
+    def delete_storage(self, storage_name: str):
+        if not es.indices.exists(index=storage_name):
+            raise HTTPException(status_code=404, detail=f"'{storage_name}' not found")
+
+        es.indices.delete(index=storage_name)

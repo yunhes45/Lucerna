@@ -11,3 +11,10 @@ def get_collection_service() -> CollectionService:
 @router.post("", response_model = CollectionResponse)
 def create(request: CollectionCreateRequest, service: CollectionService = Depends(get_collection_service)):
     return service.create_collection(request)
+
+
+
+@router.delete("/{group_id}/{collection_id}")
+def delete(group_id: str, collection_id: str, service: CollectionService = Depends(get_collection_service)):
+    service.delete_collection(group_id, collection_id)
+    return {"status": "deleted"}

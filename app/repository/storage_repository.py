@@ -6,4 +6,10 @@ class StorageRepository(ABC):
     def create_storage(self, storage_name: str, fields: dict):
         ...
 
+
+    
+    @abstractmethod
+    def delete_storage(self, storage_name: str):
+        ...
+
     
