@@ -1,0 +1,37 @@
+from enum import Enum
+from typing import Any, Optional
+from pydantic import BaseModel
+
+
+class FieldType(str, Enum):
+    text = "text"
+    keyword = "keyword"
+    integer = "integer"
+    float = "float"
+    date = "date"
+    boolean = "boolean"
+
+
+class CollectionCreateRequest(BaseModel):
+    group_id: str
+    collection_id: str
+    fields: dict[str, FieldType]
+
+
+class CollectionResponse(BaseModel):
+    group_id: str
+    collection_id: str
+    index_name: str
+    fields: dict[str, FieldType]
+
+
+class DocumentIndexRequest(BaseModel):
+    documents: list[dict[str, Any]]
+
+
+class SearchRequest(BaseModel):
+    q: Optional[str] = None
+    filters: Optional[dict[str, Any]] = None
+    sort: Optional[str] = None
+    page: int = 1
+    size: int = 10
