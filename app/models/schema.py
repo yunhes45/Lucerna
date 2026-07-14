@@ -25,8 +25,8 @@ class CollectionResponse(BaseModel):
     fields: dict[str, FieldType]
 
 
-class DocumentIndexRequest(BaseModel):
-    documents: list[dict[str, Any]]
+class RecordIndexRequest(BaseModel):
+    records: list[dict[str, Any]]
 
 
 class SearchRequest(BaseModel):
