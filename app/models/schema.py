@@ -25,8 +25,22 @@ class CollectionResponse(BaseModel):
     fields: dict[str, FieldType]
 
 
+class CollectionDeleteResponse(BaseModel):
+    status: str
+    index_name: str
+
+
 class RecordIndexRequest(BaseModel):
     records: list[dict[str, Any]]
+
+
+class RecordIndexResponse(BaseModel):
+    indexed_count: int
+    errors: list[dict[str, Any]]
+
+
+class RecordDeleteResponse(BaseModel):
+    deleted_count: int
 
 
 class SearchRequest(BaseModel):

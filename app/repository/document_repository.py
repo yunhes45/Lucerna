@@ -8,5 +8,10 @@ class DocumentRepository(ABC):
 
 
     @abstractmethod
+    def del_documents(self, storage_name: str, filters: dict):
+        ...
+
+
+    @abstractmethod
     def search(self, storage_name: str, query: dict, from_: int, size: int, sort: list | None = None):
         ...
