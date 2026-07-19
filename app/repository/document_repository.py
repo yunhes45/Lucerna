@@ -8,7 +8,7 @@ class DocumentRepository(ABC):
 
 
     @abstractmethod
-    def del_documents(self, storage_name: str, filters: dict):
+    def del_documents(self, storage_name: str, doc_ids: list[str]):
         ...
 
 

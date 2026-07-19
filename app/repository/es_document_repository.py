@@ -6,20 +6,19 @@ class ElasticSearchDocumentRepository(DocumentRepository):
     def add_documents(self, storage_name: str, documents: list[dict]):
         actions = []
         for doc in documents:
-            actions.append({"index": {"_index": storage_name}})
+            action = {"index": {"_index": storage_name}}
+            if "id" in doc:
+                action["index"]["_id"] = doc["id"]
+
+            actions.append(action)
             actions.append(doc)
 
         return es.bulk(operations=actions)
 
 
-    def del_documents(self, storage_name: str, filters: dict):
-        query = {
-            "bool": {
-                "filter": [{"term": {key: value}} for key, value in filters.items()]
-            }
-        }
-
-        return es.delete_by_query(index=storage_name, query=query)
+    def del_documents(self, storage_name: str, doc_ids: list[str]):
+        actions = [{"delete": {"_index": storage_name, "_id": doc_id}} for doc_id in doc_ids]
+        return es.bulk(operations=actions)
 
     
     def search(self, storage_name: str, query: dict, from_: int, size: int, sort: list | None = None):

@@ -15,8 +15,9 @@ class RecordService:
 
         return RecordIndexResponse(indexed_count=indexed_count, errors=errors)
 
-    def del_records(self, group_id: str, collection_id: str, filters: dict) -> RecordDeleteResponse:
+    def del_records(self, group_id: str, collection_id: str, doc_ids: list[str]) -> RecordDeleteResponse:
         index_name = f"{group_id}_{collection_id}"
-        result = self.repository.del_documents(index_name, filters)
+        result = self.repository.del_documents(index_name, doc_ids)
 
-        return RecordDeleteResponse(deleted_count=result["deleted"])
+        deleted_count = sum(1 for item in result["items"] if item["delete"].get("result") == "deleted")
+        return RecordDeleteResponse(deleted_count=deleted_count)
