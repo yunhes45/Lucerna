@@ -43,6 +43,15 @@ class RecordDeleteResponse(BaseModel):
     deleted_count: int
 
 
+class RecordUpdateRequest(BaseModel):
+    updates: list[dict[str, Any]]
+
+
+class RecordUpdateResponse(BaseModel):
+    updated_count: int
+    errors: list[dict[str, Any]]
+
+
 class SearchRequest(BaseModel):
     q: Optional[str] = None
     filters: Optional[dict[str, Any]] = None
